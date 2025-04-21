@@ -1,34 +1,49 @@
-import React, { useState } from "react";
-import MenuPrincipal from "./MenuPrincipal";
+import React, { useState, useEffect } from "react";
 import FormularioAnalisis from "./FormularioAnalisis";
+import ListadoRemitos from "./ListadoRemitos";
 
 const App = () => {
-  const [remitos, setRemitos] = useState([]); // Lista de remitos
-  const [modo, setModo] = useState("menu"); // "menu" o "formulario"
-  const [remitoSeleccionado, setRemitoSeleccionado] = useState(null); // Remito para editar
+  const [modo, setModo] = useState("listado"); // Controla la vista actual
+  const [remitos, setRemitos] = useState(() => {
+    // Recupera los remitos del localStorage al cargar la app
+    const remitosGuardados = localStorage.getItem("remitos");
+    return remitosGuardados ? JSON.parse(remitosGuardados) : [];
+  });
+  const [remitoSeleccionado, setRemitoSeleccionado] = useState(null); // Remito seleccionado para editar
+
+  // Efecto para actualizar el localStorage cada vez que cambien los remitos
+  useEffect(() => {
+    console.log("Actualizando localStorage:", remitos);
+    localStorage.setItem("remitos", JSON.stringify(remitos));
+  }, [remitos]);
 
   const agregarRemito = (nuevoRemito) => {
-    setRemitos([...remitos, { id: Date.now(), ...nuevoRemito }]);
-    setModo("menu");
+    const nuevosRemitos = [...remitos, { id: Date.now(), ...nuevoRemito }];
+    console.log("Nuevo remito agregado:", nuevosRemitos);
+    setRemitos(nuevosRemitos);
   };
 
-  const editarRemito = (id, datosActualizados) => {
-    setRemitos(
-      remitos.map((remito) =>
-        remito.id === id ? { ...remito, ...datosActualizados } : remito
-      )
+  const actualizarRemito = (id, remitoActualizado) => {
+    const remitosActualizados = remitos.map((remito) =>
+      remito.id === id ? { ...remito, ...remitoActualizado } : remito
     );
-    setModo("menu");
+    console.log("Remitos actualizados:", remitosActualizados);
+    setRemitos(remitosActualizados);
   };
 
   const borrarRemito = (id) => {
     setRemitos(remitos.filter((remito) => remito.id !== id));
   };
 
+  const onVolver = () => {
+    setModo("listado");
+    setRemitoSeleccionado(null); // Limpia el remito seleccionado
+  };
+
   return (
     <div>
-      {modo === "menu" && (
-        <MenuPrincipal
+      {modo === "listado" && (
+        <ListadoRemitos
           remitos={remitos}
           onAgregar={() => {
             setRemitoSeleccionado(null);
@@ -46,10 +61,10 @@ const App = () => {
           remito={remitoSeleccionado}
           onGuardar={(remito) => {
             remitoSeleccionado
-              ? editarRemito(remitoSeleccionado.id, remito)
+              ? actualizarRemito(remitoSeleccionado.id, remito)
               : agregarRemito(remito);
           }}
-          onCancelar={() => setModo("menu")}
+          onVolver={onVolver}
         />
       )}
     </div>

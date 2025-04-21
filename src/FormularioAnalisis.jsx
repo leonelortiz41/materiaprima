@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./styles.css";
 
-const FormularioAnalisis = () => {
+const FormularioAnalisis = ({remito,onGuardar,onVolver}) => {
   const [datos, setDatos] = useState({
     fincaoempaque: "",
     nombrequimico: "",
@@ -78,13 +78,30 @@ const FormularioAnalisis = () => {
   };
 
   const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("Datos cargados:", datos);
+    e.preventDefault(); // Previene el comportamiento por defecto del formulario
+    onGuardar(datos); // Llama a la función de guardado con los datos del formulario
   };
 
   return (
     <form onSubmit={handleSubmit}>
       <h1>Formulario de materia prima</h1>
+      <button
+        type="button"
+        onClick={onVolver}
+        className="cancel"
+        style={{
+          backgroundColor: "#6c757d",
+          color: "white",
+          border: "none",
+          padding: "10px 20px",
+          borderRadius: "5px",
+          cursor: "pointer",
+          marginBottom: "20px",
+        }}
+      >
+        Volver al Listado
+      </button>
+
 
       {/* Campos del Formulario */}
       <label>
