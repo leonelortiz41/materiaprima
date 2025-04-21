@@ -1,0 +1,87 @@
+import React from "react";
+
+const SubmenuRemitos = ({ carpeta, onAgregar, onEditar, onBorrar, onVolver }) => {
+  return (
+    <div>
+      <h1>Remitos de la Carpeta {carpeta.fecha}</h1>
+      <ul style={{ listStyle: "none", padding: 0 }}>
+        {carpeta.remitos.map((remito) => (
+          <li
+            key={remito.id}
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              marginBottom: "10px",
+              padding: "10px",
+              border: "1px solid #ccc",
+              borderRadius: "5px",
+            }}
+          >
+            <span>
+              <strong>{remito.origen}</strong> - {remito.tipoFruta}
+            </span>
+            <div>
+              <button
+                style={{
+                  marginRight: "5px",
+                  backgroundColor: "#007bff",
+                  color: "white",
+                  border: "none",
+                  padding: "5px 10px",
+                  borderRadius: "4px",
+                  cursor: "pointer",
+                }}
+                onClick={() => onEditar(remito)}
+              >
+                Editar
+              </button>
+              <button
+                style={{
+                  backgroundColor: "#dc3545",
+                  color: "white",
+                  border: "none",
+                  padding: "5px 10px",
+                  borderRadius: "4px",
+                  cursor: "pointer",
+                }}
+                onClick={() => onBorrar(remito.id)}
+              >
+                Borrar
+              </button>
+            </div>
+          </li>
+        ))}
+      </ul>
+      <button
+        style={{
+          marginTop: "20px",
+          backgroundColor: "#28a745",
+          color: "white",
+          border: "none",
+          padding: "10px 20px",
+          borderRadius: "5px",
+          cursor: "pointer",
+        }}
+        onClick={onAgregar}
+      >
+        Agregar Remito
+      </button>
+      <button
+        style={{
+          marginTop: "10px",
+          backgroundColor: "#6c757d",
+          color: "white",
+          border: "none",
+          padding: "10px 20px",
+          borderRadius: "5px",
+          cursor: "pointer",
+        }}
+        onClick={onVolver}
+      >
+        Volver a Carpetas
+      </button>
+    </div>
+  );
+};
+
+export default SubmenuRemitos;
