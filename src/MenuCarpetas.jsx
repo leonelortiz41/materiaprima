@@ -1,60 +1,73 @@
-import React, { useState } from "react";
+import React from "react";
 
-const MenuCarpetas = ({ carpetas, onSeleccionar, onAgregar }) => {
-  const [fechaCarpeta, setFechaCarpeta] = useState("");
-
-  const handleAgregar = () => {
-    if (fechaCarpeta) {
-      onAgregar(fechaCarpeta);
-      setFechaCarpeta("");
-    }
-  };
-
+const MenuPrincipal = ({ remitos, onAgregar, onEditar, onBorrar }) => {
   return (
     <div>
-      <h1>Carpetas</h1>
+      <h1>Lista de Remitos</h1>
       <ul style={{ listStyle: "none", padding: 0 }}>
-        {carpetas.map((carpeta) => (
+        {remitos.map((remito) => (
           <li
-            key={carpeta.fecha}
+            key={remito.id}
             style={{
+              display: "flex",
+              justifyContent: "space-between",
               marginBottom: "10px",
               padding: "10px",
               border: "1px solid #ccc",
               borderRadius: "5px",
             }}
           >
-            <span>{carpeta.fecha}</span>
-            <button
-              style={{
-                marginLeft: "10px",
-                backgroundColor: "#007bff",
-                color: "white",
-                border: "none",
-                padding: "5px 10px",
-                borderRadius: "4px",
-                cursor: "pointer",
-              }}
-              onClick={() => onSeleccionar(carpeta)}
-            >
-              Abrir
-            </button>
+            <span>
+              <strong>{remito.origen}</strong> - {remito.tipoFruta}
+            </span>
+            <div>
+              <button
+                style={{
+                  marginRight: "5px",
+                  backgroundColor: "#007bff",
+                  color: "white",
+                  border: "none",
+                  padding: "5px 10px",
+                  borderRadius: "4px",
+                  cursor: "pointer",
+                }}
+                onClick={() => onEditar(remito)}
+              >
+                Editar
+              </button>
+              <button
+                style={{
+                  backgroundColor: "#dc3545",
+                  color: "white",
+                  border: "none",
+                  padding: "5px 10px",
+                  borderRadius: "4px",
+                  cursor: "pointer",
+                }}
+                onClick={() => onBorrar(remito.id)}
+              >
+                Borrar
+              </button>
+            </div>
           </li>
         ))}
       </ul>
-      <div style={{ marginTop: "20px" }}>
-        <input
-          type="date"
-          value={fechaCarpeta}
-          onChange={(e) => setFechaCarpeta(e.target.value)}
-          style={{ marginRight: "10px", padding: "5px" }}
-        />
-        <button onClick={handleAgregar} style={{ padding: "5px 10px" }}>
-          Crear Carpeta
-        </button>
-      </div>
+      <button
+        style={{
+          marginTop: "20px",
+          backgroundColor: "#28a745",
+          color: "white",
+          border: "none",
+          padding: "10px 20px",
+          borderRadius: "5px",
+          cursor: "pointer",
+        }}
+        onClick={onAgregar}
+      >
+        Agregar Remito
+      </button>
     </div>
   );
 };
 
-export default MenuCarpetas;
+export default MenuPrincipal;
