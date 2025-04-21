@@ -84,7 +84,7 @@ const FormularioAnalisis = () => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <h1>Formulario de Análisis de Limones</h1>
+      <h1>Formulario de materia prima</h1>
 
       {/* Campos del Formulario */}
       <label>
@@ -160,7 +160,7 @@ const FormularioAnalisis = () => {
         />
       </label>
       <label>
-        Cantidad de Limones en Valde:
+        Cantidad de limones en valde:
         <input
           type="number"
           name="cantidadLimonesEnValde"
@@ -217,7 +217,7 @@ const FormularioAnalisis = () => {
         />
       </label>
       <label>
-        ML Gastado de Bromuro/Bromato:
+        ml Gastado de KBrO3KBr:
         <input
           type="number"
           name="mlBromuro"
@@ -228,7 +228,7 @@ const FormularioAnalisis = () => {
 
       {/* Salida del cálculo relacionado con Bromuro/Bromato */}
       <div style={{ marginTop: "20px", padding: "10px", background: "#f0f0f0", borderRadius: "5px" }}>
-        <strong>Resultado Bromuro/Bromato:</strong> {calcularResultadoBromuro()}
+        <strong>% Aceite:</strong> {calcularResultadoBromuro()}
       </div>
 
       <label>
@@ -269,7 +269,7 @@ const FormularioAnalisis = () => {
         Brix:
         <input
           type="number"
-          name="Brix"
+          name="brix"
           value={datos.brix}
           onChange={handleChange}
         />

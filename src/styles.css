@@ -1,6 +1,6 @@
-/* Estilos básicos */
+/* Global styles */
 body {
-  font-family: Arial, sans-serif;
+  font-family: 'Roboto', sans-serif;
   background-color: #f8f9fa;
   margin: 0;
   padding: 0;
@@ -11,6 +11,7 @@ h1, h2, h3 {
   text-align: center;
   color: #444;
   margin-bottom: 20px;
+  font-weight: bold;
 }
 
 form, .menu, .submenu {
@@ -25,7 +26,7 @@ form, .menu, .submenu {
 label {
   display: block;
   margin-bottom: 8px;
-  font-weight: bold;
+  font-weight: 600;
   color: #555;
 }
 
@@ -50,11 +51,13 @@ button {
   border: none;
   font-size: 16px;
   cursor: pointer;
-  transition: background-color 0.3s;
+  border-radius: 5px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 button:hover {
   background-color: #0056b3;
+  transform: scale(1.05);
 }
 
 button.cancel {
@@ -73,6 +76,7 @@ ul {
 li {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   padding: 10px;
   margin-bottom: 10px;
   border: 1px solid #ddd;
@@ -90,9 +94,10 @@ li button {
   width: auto;
   margin-left: 10px;
   padding: 8px 15px;
+  border-radius: 5px;
 }
 
-/* Responsividad */
+/* Responsive styles */
 @media (max-width: 768px) {
   h1, h2 {
     font-size: 20px;
@@ -100,9 +105,6 @@ li button {
 
   input, select, button {
     font-size: 14px;
-  }
-
-  button {
     padding: 10px;
   }
 
