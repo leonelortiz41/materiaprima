@@ -1,43 +1,41 @@
 import React, { useState, useEffect } from "react";
-import FormularioAnalisis from "./FormularioAnalisis";
 import ListadoRemitos from "./ListadoRemitos";
+import EditarRemito from "./EditarRemito";
+import FormularioAnalisis from "./FormularioAnalisis";
 
 const App = () => {
   const [modo, setModo] = useState("listado"); // Controla la vista actual
   const [remitos, setRemitos] = useState(() => {
-    // Recupera los remitos del localStorage al cargar la app
+    // Recuperar remitos desde localStorage
     const remitosGuardados = localStorage.getItem("remitos");
     return remitosGuardados ? JSON.parse(remitosGuardados) : [];
   });
-  const [remitoSeleccionado, setRemitoSeleccionado] = useState(null); // Remito seleccionado para editar
+  const [remitoSeleccionado, setRemitoSeleccionado] = useState(null);
 
-  // Efecto para actualizar el localStorage cada vez que cambien los remitos
   useEffect(() => {
-    console.log("Actualizando localStorage:", remitos);
+    // Guardar remitos en localStorage cada vez que cambien
     localStorage.setItem("remitos", JSON.stringify(remitos));
   }, [remitos]);
 
+  // Función para agregar un nuevo remito
   const agregarRemito = (nuevoRemito) => {
-    const nuevosRemitos = [...remitos, { id: Date.now(), ...nuevoRemito }];
-    console.log("Nuevo remito agregado:", nuevosRemitos);
-    setRemitos(nuevosRemitos);
+    setRemitos([...remitos, { id: Date.now(), ...nuevoRemito }]);
+    setModo("listado"); // Vuelve al listado después de agregar
   };
 
+  // Función para actualizar un remito existente
   const actualizarRemito = (id, remitoActualizado) => {
-    const remitosActualizados = remitos.map((remito) =>
-      remito.id === id ? { ...remito, ...remitoActualizado } : remito
+    setRemitos(
+      remitos.map((remito) =>
+        remito.id === id ? { ...remito, ...remitoActualizado } : remito
+      )
     );
-    console.log("Remitos actualizados:", remitosActualizados);
-    setRemitos(remitosActualizados);
+    setModo("listado"); // Vuelve al listado después de editar
   };
 
+  // Función para borrar un remito
   const borrarRemito = (id) => {
     setRemitos(remitos.filter((remito) => remito.id !== id));
-  };
-
-  const onVolver = () => {
-    setModo("listado");
-    setRemitoSeleccionado(null); // Limpia el remito seleccionado
   };
 
   return (
@@ -51,20 +49,32 @@ const App = () => {
           }}
           onEditar={(remito) => {
             setRemitoSeleccionado(remito);
-            setModo("formulario");
+            setModo("editar");
           }}
           onBorrar={borrarRemito}
         />
       )}
+
       {modo === "formulario" && (
         <FormularioAnalisis
-          remito={remitoSeleccionado}
-          onGuardar={(remito) => {
-            remitoSeleccionado
-              ? actualizarRemito(remitoSeleccionado.id, remito)
-              : agregarRemito(remito);
+          onGuardar={(nuevoRemito) => {
+            agregarRemito(nuevoRemito); // Agrega el remito al listado
           }}
-          onVolver={onVolver}
+          onVolver={() => setModo("listado")} // Vuelve al listado
+        />
+      )}
+
+      {modo === "editar" && (
+        <EditarRemito
+          remito={remitoSeleccionado}
+          onGuardar={(datosActualizados) => {
+            actualizarRemito(remitoSeleccionado.id, datosActualizados);
+            setRemitoSeleccionado(null); // Limpia el remito seleccionado
+          }}
+          onVolver={() => {
+            setRemitoSeleccionado(null);
+            setModo("listado");
+          }}
         />
       )}
     </div>

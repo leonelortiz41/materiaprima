@@ -19,58 +19,64 @@ const ListadoRemitos = ({ remitos, onAgregar, onEditar, onBorrar }) => {
       // Título del remito
       doc.setFontSize(14);
       doc.text(`Número de Remito: ${remito.numeroRemito || "N/A"}`, 14, y);
-      y += 10;
+      y += 5;
 
       // Datos del remito
       doc.setFontSize(12);
       doc.text(`Finca o Empaque: ${remito.fincaoempaque || "N/A"}`, 14, y);
       doc.text(`Químico: ${remito.nombrequimico || "N/A"}`, 100, y);
-      y += 10;
+      y += 4;
       doc.text(`Toneladas: ${remito.toneladas || "N/A"}`, 14, y);
       doc.text(`Tipo de Fruta: ${remito.tipoFruta || "N/A"}`, 100, y);
-      y += 10;
+      y += 4;
       doc.text(`Hora de Volcado: ${remito.horaVolcado || "N/A"}`, 14, y);
       doc.text(`Hora de Muestreo: ${remito.horaMuestreo || "N/A"}`, 100, y);
-      y += 10;
+      y += 4;
       doc.text(`Peso de Valde: ${remito.pesoValde || "N/A"}`, 14, y);
       doc.text(`Cantidad de fruta: ${remito.cantidadLimonesEnValde || "N/A"}`, 100, y);
-      y += 10;
+      y += 4;
       doc.text(`frutas chicas: ${remito.cantidadPequenos || "N/A"}`, 14, y);
       doc.text(`peso de frutas chicas: ${remito.pesoPequenos || "N/A"}`, 100, y);
-      y += 10;
+      y += 4;
       doc.text(`podridos: ${remito.cantidadPodridos || "N/A"}`, 14, y);
       doc.text(`peso de muestra: ${remito.pesoMuestra || "N/A"}`, 100, y);
-      y += 10;
+      y += 4;
       doc.text(`ml gastados: ${remito.mlBromuro || "N/A"}`, 14, y);
       doc.text(`normalidad KBrO3KBr: ${remito.normalidadKBrO3KBr || "N/A"}`, 100, y);
-      y += 10;
+      y += 4;
       doc.text(`normalidad NaOH: ${remito.normalidadNaOH || "N/A"}`, 14, y);
       doc.text(`peso bandeja de limones: ${remito.pesoBandejaLimones || "N/A"}`, 100, y);
-      y += 10;
+      y += 4;
       doc.text(`peso jugo c/p: ${remito.pesoJugoConPulpa || "N/A"}`, 14, y);
       doc.text(`peso jugo s/p: ${remito.pesoJugoSinPulpa || "N/A"}`, 100, y);
-      y += 10;
+      y += 4;
       doc.text(`brix: ${remito.brix || "N/A"}`, 14, y);
       doc.text(`peso muestra de jugo: ${remito.pesoMuestraJugo || "N/A"}`, 100, y);
-      y += 10;
+      y += 4;
       doc.text(`volumen gastado: ${remito.volumenGastado || "N/A"}`, 14, y);
       doc.text(`cantidad de limones(jugo): ${remito.cantidadLimones || "N/A"}`, 100, y);
-      y += 10;
+      y += 4;
       doc.text(`limones chicos: ${remito.cantLimonesChicos || "N/A"}`, 14, y);
       doc.text(`limones medianos: ${remito.cantLimonesMedianos || "N/A"}`, 100, y);
-      y += 10;
+      y += 4;
       doc.text(`limones grandes: ${remito.cantLimonesGrandes || "N/A"}`, 14, y);
       doc.text(`limones macnchados: ${remito.cantManchados || "N/A"}`, 100, y);
-      y += 10;
+      y += 4;
       doc.text(`limones blandos: ${remito.cantBlandos || "N/A"}`, 14, y);
       doc.text(`limones podridos: ${remito.cantPodridos || "N/A"}`, 100, y);
-      y += 10;
+      y += 4;
       doc.text(`limones amarillos: ${remito.cantAmarillos || "N/A"}`, 14, y);
       doc.text(`limones amarilloverdozos: ${remito.cantAmarilloVerdozo || "N/A"}`, 100, y);
-      y += 10;
+      y += 4;
       doc.text(`limones verdes: ${remito.cantVerdes || "N/A"}`, 14, y);
-      doc.text(`gramaje: ${remito.pesoValde / remito.cantidadLimonesEnValde || "N/A"}`, 100, y);
-      y += 20; // Separación entre remitos
+      doc.text(`gramaje: ${(remito.pesoValde / remito.cantidadLimonesEnValde).toFixed(2) || "N/A"}`, 100, y);
+      y += 4;
+      doc.text(`%Aceite: %${((remito.mlBromuro * remito.normalidadKBrO3KBr * 68) / remito.pesoMuestra).toFixed(2) || "N/A"}`, 14, y);
+      doc.text(`%Acidez: %${((remito.volumenGastado * remito.normalidadNaOH * 0.049) / remito.pesoMuestraJugo * 100).toFixed(2) || "N/A"}`, 100, y);
+      y += 4;
+      doc.text(`%Rendimiento jugo c/p: %${((remito.pesoJugoConPulpa / remito.pesoBandejaLimones) * 100).toFixed(2) || "N/A"}`, 14, y);
+      doc.text(`%Rendimiento jugo s/p: %${((remito.pesoJugoSinPulpa / remito.pesoBandejaLimones) * 100).toFixed(2) || "N/A"}`, 100, y);
+      y += 10; // Separación entre remitos
 
       // Salto de página si es necesario
       if (y > 280) {

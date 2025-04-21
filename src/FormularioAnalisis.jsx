@@ -322,6 +322,97 @@ const FormularioAnalisis = ({remito,onGuardar,onVolver}) => {
         <strong>Acidez:</strong> {calcularAcidez()}%
       </div>
 
+      <label>
+        Cantidad limones:
+        <input
+          type="number"
+          name="cantidadLimones"
+          value={datos.cantidadLimones}
+          onChange={handleChange}
+        />
+      </label>
+      <label>
+        limones chicos:
+        <input
+          type="number"
+          name="cantLimonesChicos"
+          value={datos.cantLimonesChicos}
+          onChange={handleChange}
+        />
+      </label>
+      <label>
+        limones medianos:
+        <input
+          type="number"
+          name="cantLimonesMedianos"
+          value={datos.cantLimonesMedianos}
+          onChange={handleChange}
+        />
+      </label>
+      <label>
+        limones grandes:
+        <input
+          type="number"
+          name="cantLimonesGrandes"
+          value={datos.cantLimonesGrandes}
+          onChange={handleChange}
+        />
+      </label>
+      <label>
+        limones manchados:
+        <input
+          type="number"
+          name="cantManchados"
+          value={datos.cantManchados}
+          onChange={handleChange}
+        />
+      </label>
+      <label>
+        limones blandos:
+        <input
+          type="number"
+          name="cantBlandos"
+          value={datos.cantBlandos}
+          onChange={handleChange}
+        />
+      </label>
+      <label>
+        limones podridos:
+        <input
+          type="number"
+          name="cantPodridos"
+          value={datos.cantPodridos}
+          onChange={handleChange}
+        />
+      </label>
+      <label>
+        limones amarillos:
+        <input
+          type="number"
+          name="cantAmarillos"
+          value={datos.cantAmarillos}
+          onChange={handleChange}
+        />
+      </label>
+      <label>
+        limones amarilloverdozos:
+        <input
+          type="number"
+          name="cantAmarilloVerdozo"
+          value={datos.cantAmarilloVerdozo}
+          onChange={handleChange}
+        />
+      </label>
+      <label>
+        limones verdes:
+        <input
+          type="number"
+          name="cantVerdes"
+          value={datos.cantVerdes}
+          onChange={handleChange}
+        />
+      </label>
+
       <button type="submit">Guardar Datos</button>
     </form>
   );
